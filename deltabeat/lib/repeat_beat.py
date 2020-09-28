@@ -1,23 +1,22 @@
 from typing import List
-from ..core.beat import Beat
-from ..core.event import Event
+import deltabeat.core as db
 
 
-class RepeatBeat(Beat):
+class RepeatBeat(db.Beat):
     """
     Repeat an existing beat an integer number of times. The length of the resultant
     beat is the original's length times the number of beats, i.e. the 'speed' of the
     original beat is maintained.
     """
 
-    def __init__(self, beat: Beat, repeats: int = 1):
+    def __init__(self, beat: db.Beat, repeats: int = 1):
         self.beat = beat
         self.repeats = repeats
 
     def length(self) -> float:
         return self.beat.length() * self.repeats
 
-    def events(self) -> List[Event]:
+    def events(self) -> List[db.Event]:
         result = []
         for i in range(self.repeats):
             for ev in self.beat.events():

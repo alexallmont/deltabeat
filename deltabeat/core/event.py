@@ -1,4 +1,7 @@
-from copy import copy
+class EventAttributeException(Exception):
+    """
+    Report type inconsistencies when setting an event's attributes.
+    """
 
 
 class Event:
@@ -10,11 +13,21 @@ class Event:
     allows these as optional public values
     """
 
-    def __init__(self, pos, duration=None, note=None, volume=None):
+    def __init__(self, pos: float, volume=None, note=None, duration=None):
         self.pos = pos
-        self.duration = duration
-        self.note = note
+
+        if volume and type(volume) is not float:
+            raise EventAttributeException(f'Expecting float for volume, not {type(note)}')
+
+        if note and type(note) is not str:
+            raise EventAttributeException(f'Expecting string for note, not {type(note)}')
+
+        if duration and type(duration) is not float:
+            raise EventAttributeException(f'Expecting float for duration, not {type(note)}')
+
         self.volume = volume
+        self.note = note
+        self.duration = duration
 
     def clone_at(self, pos: float):
         """
@@ -23,7 +36,7 @@ class Event:
         :return: a clone of self with changed position and copied attributes
         """
         clone = Event(pos)
-        clone.duration = copy(self.duration)
-        clone.note = copy(self.note)
-        clone.volume = copy(self.volume)
+        clone.duration = self.duration
+        clone.note = self.note
+        clone.volume = self.volume
         return clone

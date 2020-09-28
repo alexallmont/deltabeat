@@ -2,6 +2,12 @@ from typing import List
 from .event import Event
 
 
+class InvalidBeatException(Exception):
+    """
+    Report cases where a beat is expected but a different type was passed.
+    """
+
+
 class Beat:
     """
     Abstract base class for types of beats. See /lib for concrete implementations.
@@ -28,9 +34,3 @@ class Beat:
         :return:
         """
         raise Exception(f'Beat::events not implemented for {self}')
-
-
-class InvalidBeatException(Exception):
-    """
-    Report cases where a beat is expected but a different type was passed.
-    """

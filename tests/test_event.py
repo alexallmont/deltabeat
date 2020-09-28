@@ -29,7 +29,7 @@ def test_create_bad_attributes():
 
 
 def test_clone_event():
-    a = Event(.2, volume=0.4, note='D5', duration=0.9)
+    a = Event(.2, volume=.4, note='D5', duration=.9)
     b = a.clone_at(.4)
 
     assert a.pos == .2

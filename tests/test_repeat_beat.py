@@ -21,22 +21,22 @@ def test_empty_beat():
 
 def test_repeat_beat():
     # Test repeat on volume events to check that events have cloned correctly
-    motif = CustomBeat(make_volume_events([(0, 0.6), (0.1, 0.7)]), 0.4)
+    motif = CustomBeat(make_volume_events([(0, .6), (.1, .7)]), .4)
     repeat = RepeatBeat(motif, 3)
 
     assert repeat.length() == approx(1.2)  # 3 * 0.4
     assert len(repeat.events()) == 6
 
     assert repeat.events()[0].pos == approx(0)
-    assert repeat.events()[1].pos == approx(0.1)
-    assert repeat.events()[2].pos == approx(0.4)
-    assert repeat.events()[3].pos == approx(0.5)
-    assert repeat.events()[4].pos == approx(0.8)
-    assert repeat.events()[5].pos == approx(0.9)
+    assert repeat.events()[1].pos == approx(.1)
+    assert repeat.events()[2].pos == approx(.4)
+    assert repeat.events()[3].pos == approx(.5)
+    assert repeat.events()[4].pos == approx(.8)
+    assert repeat.events()[5].pos == approx(.9)
 
-    assert repeat.events()[0].volume == 0.6
-    assert repeat.events()[1].volume == 0.7
-    assert repeat.events()[2].volume == 0.6
-    assert repeat.events()[3].volume == 0.7
-    assert repeat.events()[4].volume == 0.6
-    assert repeat.events()[5].volume == 0.7
+    assert repeat.events()[0].volume == .6
+    assert repeat.events()[1].volume == .7
+    assert repeat.events()[2].volume == .6
+    assert repeat.events()[3].volume == .7
+    assert repeat.events()[4].volume == .6
+    assert repeat.events()[5].volume == .7

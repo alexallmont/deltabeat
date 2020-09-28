@@ -13,6 +13,6 @@ def test_custom_beat():
     assert beat.length() == 1
     assert len(beat.events()) == 4
     assert beat.events()[0].pos == 0
-    assert beat.events()[1].pos == 0.25
-    assert beat.events()[2].pos == 0.5
-    assert beat.events()[3].pos == 0.75
+    assert beat.events()[1].pos == .25
+    assert beat.events()[2].pos == .5
+    assert beat.events()[3].pos == .75

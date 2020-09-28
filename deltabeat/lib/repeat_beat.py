@@ -10,6 +10,11 @@ class RepeatBeat(db.Beat):
     """
 
     def __init__(self, beat: db.Beat, repeats: int):
+        """
+        Create a beat that repeats an existing beat a fixed number of times.
+        :param beat: existing source beat
+        :param repeats: integral number of repeats
+        """
         if not issubclass(type(beat), db.Beat):
             raise db.beat.InvalidBeatException(f'Invalid type {type(beat)} for RepeatBeat')
 

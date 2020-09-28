@@ -1,3 +1,4 @@
+from typing import List
 import deltabeat.core as db
 
 
@@ -22,10 +23,10 @@ class ScaleBeat(db.Beat):
         self.beat = beat
         self.factor = factor
 
-    def length(self):
+    def length(self) -> float:
         return self.beat.length() * self.factor
 
-    def events(self):
+    def events(self) -> List[db.Event]:
         result = []
         for ev in self.beat.events():
             result.append(ev.clone_at(ev.pos * self.factor))

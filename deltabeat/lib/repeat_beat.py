@@ -9,7 +9,10 @@ class RepeatBeat(db.Beat):
     original beat is maintained.
     """
 
-    def __init__(self, beat: db.Beat, repeats: int = 1):
+    def __init__(self, beat: db.Beat, repeats: int):
+        if not issubclass(type(beat), db.Beat):
+            raise db.beat.InvalidBeatException(f'Invalid type {type(beat)} for RepeatBeat')
+
         self.beat = beat
         self.repeats = repeats
 

@@ -28,3 +28,9 @@ class Beat:
         :return:
         """
         raise Exception(f'Beat::events not implemented for {self}')
+
+
+class InvalidBeatException(Exception):
+    """
+    Report cases where a beat is expected but a different type was passed.
+    """

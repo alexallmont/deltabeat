@@ -1,8 +1,8 @@
 from typing import List
-import deltabeat.core as db
+import deltabeat.core as dbc
 
 
-class ScaleBeat(db.Beat):
+class ScaleBeat(dbc.Beat):
     """
     Scale an existing beat by a float factor. The resulting beat is scaled
     linearly with the resulting length as original length * factor.
@@ -11,14 +11,14 @@ class ScaleBeat(db.Beat):
     source beat, then there will be a noticeable 'jump' in tempo.
     """
 
-    def __init__(self, beat: db.Beat, factor: float):
+    def __init__(self, beat: dbc.Beat, factor: float):
         """
         Create a scaled (time stretched) version of an existing beat.
         :param beat: existing source beat
         :param factor: fractional scaling factor, e.g. 2 gives twice length, half tempo
         """
-        if not issubclass(type(beat), db.Beat):
-            raise db.beat.InvalidBeatException(f'Invalid type {type(beat)} for ScaleBeat')
+        if not issubclass(type(beat), dbc.Beat):
+            raise dbc.beat.InvalidBeatException(f'Invalid type {type(beat)} for ScaleBeat')
 
         self.beat = beat
         self.factor = factor
@@ -26,7 +26,7 @@ class ScaleBeat(db.Beat):
     def length(self) -> float:
         return self.beat.length() * self.factor
 
-    def events(self) -> List[db.Event]:
+    def events(self) -> List[dbc.Event]:
         result = []
         for ev in self.beat.events():
             result.append(ev.clone_at(ev.pos * self.factor))

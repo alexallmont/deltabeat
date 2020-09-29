@@ -1,22 +1,22 @@
 from typing import List
-import deltabeat.core as db
+import deltabeat.core as dbc
 
 
-class RepeatBeat(db.Beat):
+class RepeatBeat(dbc.Beat):
     """
     Repeat an existing beat an integer number of times. The length of the resultant
     beat is the original's length times the number of beats, i.e. the 'speed' of the
     original beat is maintained.
     """
 
-    def __init__(self, beat: db.Beat, repeats: int):
+    def __init__(self, beat: dbc.Beat, repeats: int):
         """
         Create a beat that repeats an existing beat a fixed number of times.
         :param beat: existing source beat
         :param repeats: integral number of repeats
         """
-        if not issubclass(type(beat), db.Beat):
-            raise db.beat.InvalidBeatException(f'Invalid type {type(beat)} for RepeatBeat')
+        if not issubclass(type(beat), dbc.Beat):
+            raise dbc.beat.InvalidBeatException(f'Invalid type {type(beat)} for RepeatBeat')
 
         self.beat = beat
         self.repeats = repeats
@@ -24,7 +24,7 @@ class RepeatBeat(db.Beat):
     def length(self) -> float:
         return self.beat.length() * self.repeats
 
-    def events(self) -> List[db.Event]:
+    def events(self) -> List[dbc.Event]:
         result = []
         for i in range(self.repeats):
             for ev in self.beat.events():

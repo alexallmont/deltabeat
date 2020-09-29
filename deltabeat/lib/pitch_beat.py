@@ -1,10 +1,10 @@
 from typing import List
 import numpy as np
 from numpy.linalg import inv
-import deltabeat.core as db
+import deltabeat.core as dbc
 
 
-class PitchBeat(db.Beat):
+class PitchBeat(dbc.Beat):
     """
     Pitch an existing beat to shift between two speeds over a certain length. This is
     comparable to how a DJ touches or jogs vinyl to beat-match two rhythms and can be
@@ -23,7 +23,7 @@ class PitchBeat(db.Beat):
     temporarily reverse, so events go out of order.
     """
 
-    def __init__(self, beat: db.Beat, length: float, from_scale: float, to_scale: float):
+    def __init__(self, beat: dbc.Beat, length: float, from_scale: float, to_scale: float):
         """
         Pitch a beat to scale between two speeds in a given length
         :param beat: existing beat to pitch
@@ -31,8 +31,8 @@ class PitchBeat(db.Beat):
         :param from_scale: fractional relative speed of existing beat
         :param to_scale: fractional relative speed of beat to pitch to
         """
-        if not issubclass(type(beat), db.Beat):
-            raise db.beat.InvalidBeatException(f'Invalid type {type(beat)} for RepeatBeat')
+        if not issubclass(type(beat), dbc.Beat):
+            raise dbc.beat.InvalidBeatException(f'Invalid type {type(beat)} for RepeatBeat')
 
         self.beat = beat
         self.len = length
@@ -42,7 +42,7 @@ class PitchBeat(db.Beat):
     def length(self):
         return self.len
 
-    def events(self) -> List[db.Event]:
+    def events(self) -> List[dbc.Event]:
         # Generate a curve that transforms the events to pitch the given range.
         # The curve computation is derived from five constraints, where fl and tl
         # are the 'from length' and 'to length' and fs and ts are the 'from scale' and

@@ -3,7 +3,7 @@ from .beat import Beat, InvalidBeatException
 from .event import Event
 
 
-class BeatPattern(Beat):
+class Pattern(Beat):
     """
     Generate beats from a list of other beats. The total length of this beat is
     the sum of the length of the beats passed in. The event positions are

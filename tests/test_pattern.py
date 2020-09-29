@@ -3,25 +3,25 @@ from pytest import approx
 
 from deltabeat.core.beat import InvalidBeatException
 from deltabeat.core.make_events import make_atomic_events
-from deltabeat.core.beat_pattern import BeatPattern
+from deltabeat.core.pattern import Pattern
 from deltabeat.lib.custom_beat import CustomBeat
 
 
 def test_empty_beat():
     with pytest.raises(InvalidBeatException):
-        BeatPattern(None)
+        Pattern(None)
 
     with pytest.raises(InvalidBeatException):
         # Should be list of beats, not an instance
-        BeatPattern(CustomBeat([], 1))
+        Pattern(CustomBeat([], 1))
 
-    empty = BeatPattern([CustomBeat([], 1), CustomBeat([], 2)])
+    empty = Pattern([CustomBeat([], 1), CustomBeat([], 2)])
     assert empty.length() == approx(3)
     assert len(empty.events()) == 0
 
 
-def test_beat_pattern():
-    pattern = BeatPattern([
+def test_pattern():
+    pattern = Pattern([
         CustomBeat(make_atomic_events([0, 0.1, 0.5]), 1),
         CustomBeat(make_atomic_events([0.2, 0.3]), 0.5),
         CustomBeat(make_atomic_events([0, 0.6]), 1)

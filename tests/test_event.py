@@ -16,6 +16,13 @@ def test_create_event():
     assert e.note == 'C4'
     assert e.duration == .3
 
+    # Check that volume and duration as integers are converted to float
+    e = Event(.5, volume=1, duration=1)
+    assert e.volume == 1
+    assert type(e.volume) == float
+    assert e.duration == 1
+    assert type(e.duration) == float
+
 
 def test_create_bad_attributes():
     with pytest.raises(EventAttributeException):

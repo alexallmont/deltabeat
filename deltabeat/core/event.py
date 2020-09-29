@@ -16,18 +16,18 @@ class Event:
     def __init__(self, pos: float, volume=None, note=None, duration=None):
         self.pos = pos
 
-        if volume and type(volume) is not float:
-            raise EventAttributeException(f'Expecting float for volume, not {type(note)}')
+        if volume and not isinstance(volume, (int, float)):
+            raise EventAttributeException(f'Expecting float for volume, not {type(volume)}')
 
         if note and type(note) is not str:
             raise EventAttributeException(f'Expecting string for note, not {type(note)}')
 
-        if duration and type(duration) is not float:
-            raise EventAttributeException(f'Expecting float for duration, not {type(note)}')
+        if duration and not isinstance(duration, (int, float)):
+            raise EventAttributeException(f'Expecting float for duration, not {type(duration)}')
 
-        self.volume = volume
+        self.volume = float(volume) if volume else None
         self.note = note
-        self.duration = duration
+        self.duration = float(duration) if duration else None
 
     def clone_at(self, pos: float):
         """

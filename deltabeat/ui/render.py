@@ -6,19 +6,19 @@ import deltabeat.core as dbc
 line_colours = [(int(255 * i/7), 127, 255) for i in range(8)]
 
 
-def beat_image(beat: dbc.Beat, scale: int = 100, height: int = 60, col_idx: int = 2):
-    width = int(beat.length() * scale)
+def motif_image(motif: dbc.Motif, scale: int = 100, height: int = 60, col_idx: int = 2):
+    width = int(motif.length() * scale)
 
     im = Image.new('HSV', (width, height))
     draw = ImageDraw.Draw(im)
 
     # Draw 'measure' markers to show where pos % 0 == 1
-    for u in range(math.ceil(beat.length())):
+    for u in range(math.ceil(motif.length())):
         x = u * scale
         draw.line([x, 0, x, height], (0, 0, 40))
 
     colour = line_colours[col_idx % 8]
-    for ev in beat.events():
+    for ev in motif.events():
         u = ev.pos
         x = u * scale
         draw.line([x, height, x, height - height * ev.volume], colour)
@@ -39,7 +39,7 @@ def multi_track_image(multi_track: dbc.MultiTrack, scale: int = 100, track_heigh
 
     im = Image.new('RGB', (width, height), (40, 40, 40))
     for i, track in enumerate(multi_track.tracks):
-        track_im = beat_image(track, scale, track_height)
+        track_im = motif_image(track, scale, track_height)
         y = i * (track_height + 2) + 2
         im.paste(track_im, (2, y))
 

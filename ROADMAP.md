@@ -9,7 +9,7 @@ Current leaning:
 
 - Move to a `src/` layout before publishing.
 - Collapse the current `core`/`lib` split unless a clearer domain boundary
-  emerges; `lib` currently means "concrete beat implementations", which is not
+  emerges; `lib` currently means "concrete motif implementations", which is not
   very helpful to users.
 - Keep image rendering available, but consider making Pillow an optional
   dependency if the core package is mainly about event generation.
@@ -21,7 +21,7 @@ Current leaning:
 
 ### API and naming
 
-- [ ] Rename beat to motif?
+- [x] Adopt motif naming across the API
 - [ ] Replace `import deltabeat.X` with `import deltabeat as dbt`, i.e. remove `dbc`
 - [ ] Merge `core` and `lib` into one package namespace, or rename `lib` to a clearer concept such as transforms
 - [ ] Expose the intended public API from `deltabeat/__init__.py`
@@ -44,7 +44,7 @@ Current leaning:
 - [ ] Add README quickstart example
 - [ ] Add example of pitch change
 - [ ] Make image example write an output file instead of only calling `im.show()`
-- [ ] Add a short explanation of the core musical model: events, motif/beat length, patterns, tracks, and pitch transforms
+- [ ] Add a short explanation of the core musical model: events, motif length, patterns, tracks, and pitch transforms
 
 ### Tests and quality
 

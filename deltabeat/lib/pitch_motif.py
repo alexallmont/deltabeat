@@ -4,37 +4,37 @@ from numpy.linalg import inv
 import deltabeat.core as dbc
 
 
-class PitchBeat(dbc.Beat):
+class PitchMotif(dbc.Motif):
     """
-    Pitch an existing beat to shift between two speeds over a certain length. This is
+    Pitch an existing motif to shift between two speeds over a certain length. This is
     comparable to how a DJ touches or jogs vinyl to beat-match two rhythms and can be
     used to generate complex phased rhythms or to match up rhythms that are out of
     phase.
 
-    For smooth pitching, from_scale should match the speed of the existing beat
-    passed in, and to_scale should match the speed of the next beat to be played.
-    In order to fit the number of beats over the full length, the curve computed to
-    match pitch may have to slow down the beat even though the final speed is faster.
+    For smooth pitching, from_scale should match the speed of the existing motif
+    passed in, and to_scale should match the speed of the next motif to be played.
+    In order to fit the number of motifs over the full length, the curve computed to
+    match pitch may have to slow down the motif even though the final speed is faster.
 
     Degenerate cases are possible when trying to pitch excessively. For example,
-    if trying to pitch between two very fast beats in a space that is too small.
+    if trying to pitch between two very fast motifs in a space that is too small.
     In these instances the curve may take on an 'N' shape causing the next event in
-    a beat to have a position before its predecessor. This will cause the output to
+    a motif to have a position before its predecessor. This will cause the output to
     temporarily reverse, so events go out of order.
     """
 
-    def __init__(self, beat: dbc.Beat, length: float, from_scale: float, to_scale: float):
+    def __init__(self, motif: dbc.Motif, length: float, from_scale: float, to_scale: float):
         """
-        Pitch a beat to scale between two speeds in a given length
-        :param beat: existing beat to pitch
+        Pitch a motif to scale between two speeds in a given length
+        :param motif: existing motif to pitch
         :param length: fractional length to scale over
-        :param from_scale: fractional relative speed of existing beat
-        :param to_scale: fractional relative speed of beat to pitch to
+        :param from_scale: fractional relative speed of existing motif
+        :param to_scale: fractional relative speed of motif to pitch to
         """
-        if not issubclass(type(beat), dbc.Beat):
-            raise dbc.beat.InvalidBeatException(f'Invalid type {type(beat)} for RepeatBeat')
+        if not issubclass(type(motif), dbc.Motif):
+            raise dbc.InvalidMotifException(f'Invalid type {type(motif)} for PitchMotif')
 
-        self.beat = beat
+        self.motif = motif
         self.len = length
         self.from_scale = from_scale
         self.to_scale = to_scale
@@ -47,28 +47,28 @@ class PitchBeat(dbc.Beat):
         # The curve computation is derived from five constraints, where fl and tl
         # are the 'from length' and 'to length' and fs and ts are the 'from scale' and
         # 'to scale' (scale being a relative measure of speed, or tempo):
-        #   1. f(0)   = 0            - an input beat at 0 maps to an output beat at 0
-        #   2. f(fl)  = tl           - likewise for beats at end
+        #   1. f(0)   = 0            - an input motif at 0 maps to an output motif at 0
+        #   2. f(fl)  = tl           - likewise for motifs at end
         #   3. f'(0)  = fs           - tempo at 0 maps to requested scale
         #   4. f'(fl) = ts           - likewise for tempo at end
         #   5. g(fl) = fl * tl / 2   - ensure time is preserved
         #
         # f(x) is the mapping of positions, and f'(x) is the mapping of scale.
         # The last function g(x) is the integral of f between 0 and fl, i.e., the area
-        # under the curve so the value over the domain [0,ft). For the beats to line up,
+        # under the curve so the value over the domain [0,ft). For the motifs to line up,
         # the area under the curve must be exactly the same as a linear scaling, which
         # is just a line with a triangular area underneath of fl * tl / 2.
         #
         # The constrains require a quartic function as there can be up to 3 inflexions
         # in speed: 2 to go faster or slower at the start and the end, and; one more to
-        # 'draw out' the beat in the middle to ensure the rhythm plays out the full
-        # range of beats, i.e. to fulfil the constraint 5 on g(x).
+        # 'draw out' the motif in the middle to ensure the rhythm plays out the full
+        # range of motifs, i.e. to fulfil the constraint 5 on g(x).
         #
         # Constraints 1 and 3 above give parameters a and b of the quartic. The other
         # coefficients are solved as a matrix derived from the system equations of
         # f(x), it's derivative f'(x), and sum g(x), along with constraints 2, 4 and 5.
         #
-        fl = self.beat.length()
+        fl = self.motif.length()
         tl = self.len
         fs = self.from_scale
         ts = self.to_scale
@@ -88,6 +88,6 @@ class PitchBeat(dbc.Beat):
             return a + b * x + c * x**2 + d * x**3 + e * x**4
 
         result = []
-        for ev in self.beat.events():
+        for ev in self.motif.events():
             result.append(ev.clone_at(f(ev.pos)))
         return result

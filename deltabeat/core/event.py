@@ -6,9 +6,9 @@ class EventAttributeException(Exception):
 
 class Event:
     """
-    A class for any type of event in a beat. Events must have a position, which
-    is a float fraction relative to the length of the owning beat, e.g. pos
-    could be [0-1) for beat of length 1.
+    A class for any type of event in a motif. Events must have a position, which
+    is a float fraction relative to the length of the owning motif, e.g. pos
+    could be [0-1) for a motif of length 1.
     General use-cases per event are duration, note value and volume. The class
     allows these as optional public values
     """

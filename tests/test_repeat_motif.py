@@ -1,28 +1,28 @@
 import pytest
 from pytest import approx
 
-from deltabeat.core.beat import InvalidBeatException
+from deltabeat.core.motif import InvalidMotifException
 from deltabeat.core.make_events import make_volume_events
-from deltabeat.lib.custom_beat import CustomBeat
-from deltabeat.lib.repeat_beat import RepeatBeat
+from deltabeat.lib.custom_motif import CustomMotif
+from deltabeat.lib.repeat_motif import RepeatMotif
 
 
-def test_empty_beat():
-    with pytest.raises(InvalidBeatException):
-        RepeatBeat(None, 1)
+def test_empty_motif():
+    with pytest.raises(InvalidMotifException):
+        RepeatMotif(None, 1)
 
-    with pytest.raises(InvalidBeatException):
-        RepeatBeat([], 1)
+    with pytest.raises(InvalidMotifException):
+        RepeatMotif([], 1)
 
-    empty = RepeatBeat(CustomBeat([], 1), 1)
+    empty = RepeatMotif(CustomMotif([], 1), 1)
     assert empty.length() == 1
     assert len(empty.events()) == 0
 
 
-def test_repeat_beat():
+def test_repeat_motif():
     # Test repeat on volume events to check that events have cloned correctly
-    motif = CustomBeat(make_volume_events([(0, .6), (.1, .7)]), .4)
-    repeat = RepeatBeat(motif, 3)
+    motif = CustomMotif(make_volume_events([(0, .6), (.1, .7)]), .4)
+    repeat = RepeatMotif(motif, 3)
 
     assert repeat.length() == approx(1.2)  # 3 * 0.4
     assert len(repeat.events()) == 6

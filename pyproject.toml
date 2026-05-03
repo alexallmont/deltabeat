@@ -8,17 +8,13 @@ version = "0.1.0"
 description = "Compositional tools for time-warped music"
 readme = "README.md"
 requires-python = ">=3.9"
-authors = [
-    { name = "Alex Allmont" }
-]
-
-dependencies = [
-    "numpy",
-]
+license = { text = "MIT" }
+authors = [{ name = "Alex Allmont" }]
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Intended Audience :: Developers",
     "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3 :: Only",
@@ -28,11 +24,10 @@ classifiers = [
 ]
 
 [project.optional-dependencies]
-render = [
-    "Pillow",
-]
 test = [
     "pytest",
+    "numpy",
+    "Pillow",
 ]
 dev = [
     "build",
@@ -42,3 +37,8 @@ dev = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[project.urls]
+Homepage = "https://github.com/alexallmont/deltabeat"
+Repository = "https://github.com/alexallmont/deltabeat"
+Issues = "https://github.com/alexallmont/deltabeat/issues"

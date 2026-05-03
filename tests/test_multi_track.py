@@ -1,8 +1,8 @@
-from deltabeat.core.multi_track import MultiTrack
+import deltabeat as dbt
 
 
 def test_track():
-    mt = MultiTrack()
+    mt = dbt.MultiTrack()
     assert mt.num_tracks() == 0
 
     mt.add_track('foo')

@@ -1,14 +1,14 @@
 from typing import List
-import deltabeat.core as dbc
+import deltabeat as dbt
 
 
-class CustomMotif(dbc.Motif):
+class CustomMotif(dbt.Motif):
     """
     Create a motif from a user-specified list of events and length.
     See core/make_events.py for convenient event list creation functions.
     """
 
-    def __init__(self, event_list: List[dbc.Event], length: float = 1):
+    def __init__(self, event_list: List[dbt.Event], length: float = 1):
         """
         Create a motif from a list of events to play in given length.
         :param event_list: list of events with pos in range [0-length)
@@ -20,5 +20,5 @@ class CustomMotif(dbc.Motif):
     def length(self) -> float:
         return self.len
 
-    def events(self) -> List[dbc.Event]:
+    def events(self) -> List[dbt.Event]:
         return self.event_list

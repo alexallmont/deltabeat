@@ -1,15 +1,14 @@
-from deltabeat.lib.custom_motif import CustomMotif
-from deltabeat.core.make_events import make_atomic_events
+import deltabeat as dbt
 
 
 def test_empty_motif():
-    empty = CustomMotif([], 1)
+    empty = dbt.CustomMotif([], 1)
     assert empty.length() == 1
     assert len(empty.events()) == 0
 
 
 def test_custom_motif():
-    motif = CustomMotif(make_atomic_events([0, .25, .5, .75]), 1)
+    motif = dbt.CustomMotif(dbt.make_atomic_events([0, .25, .5, .75]), 1)
     assert motif.length() == 1
     assert len(motif.events()) == 4
     assert motif.events()[0].pos == 0

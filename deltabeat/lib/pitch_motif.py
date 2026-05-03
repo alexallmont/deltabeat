@@ -1,10 +1,10 @@
 from typing import List
 import numpy as np
 from numpy.linalg import inv
-import deltabeat.core as dbc
+import deltabeat as dbt
 
 
-class PitchMotif(dbc.Motif):
+class PitchMotif(dbt.Motif):
     """
     Pitch an existing motif to shift between two speeds over a certain length. This is
     comparable to how a DJ touches or jogs vinyl to beat-match two rhythms and can be
@@ -23,7 +23,7 @@ class PitchMotif(dbc.Motif):
     temporarily reverse, so events go out of order.
     """
 
-    def __init__(self, motif: dbc.Motif, length: float, from_scale: float, to_scale: float):
+    def __init__(self, motif: dbt.Motif, length: float, from_scale: float, to_scale: float):
         """
         Pitch a motif to scale between two speeds in a given length
         :param motif: existing motif to pitch
@@ -31,8 +31,8 @@ class PitchMotif(dbc.Motif):
         :param from_scale: fractional relative speed of existing motif
         :param to_scale: fractional relative speed of motif to pitch to
         """
-        if not issubclass(type(motif), dbc.Motif):
-            raise dbc.InvalidMotifException(f'Invalid type {type(motif)} for PitchMotif')
+        if not issubclass(type(motif), dbt.Motif):
+            raise dbt.InvalidMotifException(f'Invalid type {type(motif)} for PitchMotif')
 
         self.motif = motif
         self.len = length
@@ -42,7 +42,7 @@ class PitchMotif(dbc.Motif):
     def length(self):
         return self.len
 
-    def events(self) -> List[dbc.Event]:
+    def events(self) -> List[dbt.Event]:
         # Generate a curve that transforms the events to pitch the given range.
         # The curve computation is derived from five constraints, where fl and tl
         # are the 'from length' and 'to length' and fs and ts are the 'from scale' and

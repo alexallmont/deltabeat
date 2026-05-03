@@ -1,27 +1,23 @@
+import deltabeat as dbt
 import pytest
 from pytest import approx
 
-from deltabeat.core.motif import InvalidMotifException
-from deltabeat.core.make_events import make_atomic_events
-from deltabeat.lib.custom_motif import CustomMotif
-from deltabeat.lib.scale_motif import ScaleMotif
-
 
 def test_empty_motif():
-    with pytest.raises(InvalidMotifException):
-        ScaleMotif(None, 1)
+    with pytest.raises(dbt.InvalidMotifException):
+        dbt.ScaleMotif(None, 1)
 
-    with pytest.raises(InvalidMotifException):
-        ScaleMotif([], 1)
+    with pytest.raises(dbt.InvalidMotifException):
+        dbt.ScaleMotif([], 1)
 
-    empty = ScaleMotif(CustomMotif([], 1.4), 1.6)
+    empty = dbt.ScaleMotif(dbt.CustomMotif([], 1.4), 1.6)
     assert empty.length() == approx(1.4 * 1.6)
     assert len(empty.events()) == 0
 
 
 def test_scale_motif():
-    motif = CustomMotif(make_atomic_events([i / 4 for i in range(4)]), 1)
-    scale = ScaleMotif(motif, 2.5)
+    motif = dbt.CustomMotif(dbt.make_atomic_events([i / 4 for i in range(4)]), 1)
+    scale = dbt.ScaleMotif(motif, 2.5)
 
     assert scale.length() == 2.5
     assert len(scale.events()) == 4

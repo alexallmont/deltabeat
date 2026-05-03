@@ -1,30 +1,26 @@
+import deltabeat as dbt
 import pytest
 from pytest import approx
 
-from deltabeat.core.motif import InvalidMotifException
-from deltabeat.core.make_events import make_atomic_events
-from deltabeat.core.pattern import Pattern
-from deltabeat.lib.custom_motif import CustomMotif
-
 
 def test_empty_motif():
-    with pytest.raises(InvalidMotifException):
-        Pattern(None)
+    with pytest.raises(dbt.InvalidMotifException):
+        dbt.Pattern(None)
 
-    with pytest.raises(InvalidMotifException):
+    with pytest.raises(dbt.InvalidMotifException):
         # Should be list of motifs, not an instance
-        Pattern(CustomMotif([], 1))
+        dbt.Pattern(dbt.CustomMotif([], 1))
 
-    empty = Pattern([CustomMotif([], 1), CustomMotif([], 2)])
+    empty = dbt.Pattern([dbt.CustomMotif([], 1), dbt.CustomMotif([], 2)])
     assert empty.length() == approx(3)
     assert len(empty.events()) == 0
 
 
 def test_pattern():
-    pattern = Pattern([
-        CustomMotif(make_atomic_events([0, 0.1, 0.5]), 1),
-        CustomMotif(make_atomic_events([0.2, 0.3]), 0.5),
-        CustomMotif(make_atomic_events([0, 0.6]), 1)
+    pattern = dbt.Pattern([
+        dbt.CustomMotif(dbt.make_atomic_events([0, 0.1, 0.5]), 1),
+        dbt.CustomMotif(dbt.make_atomic_events([0.2, 0.3]), 0.5),
+        dbt.CustomMotif(dbt.make_atomic_events([0, 0.6]), 1)
     ])
 
     assert pattern.length() == 2.5

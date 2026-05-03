@@ -1,12 +1,11 @@
-from deltabeat.core.make_events import make_atomic_events
-from deltabeat.core.make_events import make_volume_events
+import deltabeat as dbt
 
 
 def test_make_atomic():
-    empty = make_atomic_events([])
+    empty = dbt.make_atomic_events([])
     assert len(empty) == 0
 
-    events = make_atomic_events([0, .5])
+    events = dbt.make_atomic_events([0, .5])
     assert len(events) == 2
     assert events[0].pos == 0
     assert events[0].volume is None
@@ -16,10 +15,10 @@ def test_make_atomic():
 
 
 def test_make_volume():
-    empty = make_volume_events([])
+    empty = dbt.make_volume_events([])
     assert len(empty) == 0
 
-    events = make_volume_events([(.1, .2), (.9, .4)])
+    events = dbt.make_volume_events([(.1, .2), (.9, .4)])
     assert len(events) == 2
     assert events[0].pos == .1
     assert events[0].volume == .2

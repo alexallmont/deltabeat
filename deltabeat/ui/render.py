@@ -1,12 +1,12 @@
 from PIL import Image, ImageDraw
 import math
-import deltabeat.core as dbc
+import deltabeat as dbt
 
 
 line_colours = [(int(255 * i/7), 127, 255) for i in range(8)]
 
 
-def motif_image(motif: dbc.Motif, scale: int = 100, height: int = 60, col_idx: int = 2):
+def motif_image(motif: dbt.Motif, scale: int = 100, height: int = 60, col_idx: int = 2):
     width = int(motif.length() * scale)
 
     im = Image.new('HSV', (width, height))
@@ -26,7 +26,7 @@ def motif_image(motif: dbc.Motif, scale: int = 100, height: int = 60, col_idx: i
     return im.convert('RGB')
 
 
-def multi_track_image(multi_track: dbc.MultiTrack, scale: int = 100, track_height: int = 60):
+def multi_track_image(multi_track: dbt.MultiTrack, scale: int = 100, track_height: int = 60):
     # Use longest track to determine image width
     max_len = 0
     for track in multi_track.tracks:

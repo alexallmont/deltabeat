@@ -1,22 +1,22 @@
 from typing import List
-import deltabeat.core as dbc
+import deltabeat as dbt
 
 
-class RepeatMotif(dbc.Motif):
+class RepeatMotif(dbt.Motif):
     """
     Repeat an existing motif an integer number of times. The length of the resultant
     motif is the original's length times the number of repeats, i.e. the 'speed' of
     the original motif is maintained.
     """
 
-    def __init__(self, motif: dbc.Motif, repeats: int):
+    def __init__(self, motif: dbt.Motif, repeats: int):
         """
         Create a motif that repeats an existing motif a fixed number of times.
         :param motif: existing source motif
         :param repeats: integral number of repeats
         """
-        if not issubclass(type(motif), dbc.Motif):
-            raise dbc.InvalidMotifException(f'Invalid type {type(motif)} for RepeatMotif')
+        if not issubclass(type(motif), dbt.Motif):
+            raise dbt.InvalidMotifException(f'Invalid type {type(motif)} for RepeatMotif')
 
         self.motif = motif
         self.repeats = repeats
@@ -24,7 +24,7 @@ class RepeatMotif(dbc.Motif):
     def length(self) -> float:
         return self.motif.length() * self.repeats
 
-    def events(self) -> List[dbc.Event]:
+    def events(self) -> List[dbt.Event]:
         result = []
         for i in range(self.repeats):
             for ev in self.motif.events():

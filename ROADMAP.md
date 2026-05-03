@@ -22,9 +22,8 @@ Current leaning:
 ### API and naming
 
 - [x] Adopt motif naming across the API
-- [ ] Replace `import deltabeat.X` with `import deltabeat as dbt`, i.e. remove `dbc`
-- [ ] Merge `core` and `lib` into one package namespace, or rename `lib` to a clearer concept such as transforms
-- [ ] Expose the intended public API from `deltabeat/__init__.py`
+- [x] Replace `import deltabeat.X` with `import deltabeat as dbt`, i.e. remove `dbc`
+- [x] Expose the intended public API from `deltabeat/__init__.py`
 - [ ] Introduce pitch/parametric in motif
 
 ### Packaging and release

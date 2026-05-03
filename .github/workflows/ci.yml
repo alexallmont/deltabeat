@@ -12,19 +12,23 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-  steps:
+    steps:
     - uses: actions/checkout@v4
 
     - uses: actions/setup-python@v5
       with:
         python-version: "3.11"
 
-    - name: Install package + test deps
+    - name: Install package and test deps
       run: pip install -e .[test]
 
     - name: Run tests
       run: pytest
 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Build package
       run: |
         pip install build

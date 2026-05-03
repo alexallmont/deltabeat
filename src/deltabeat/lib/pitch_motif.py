@@ -1,6 +1,5 @@
 from typing import List
 import numpy as np
-from numpy.linalg import inv
 import deltabeat as dbt
 
 

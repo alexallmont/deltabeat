@@ -7,7 +7,6 @@ from .core.multi_track import MultiTrack
 from .core.pattern import Pattern
 from .core.track import Track
 from .lib.custom_motif import CustomMotif
-from .lib.pitch_motif import PitchMotif
 from .lib.repeat_motif import RepeatMotif
 from .lib.scale_motif import ScaleMotif
 
@@ -31,8 +30,9 @@ __all__ = [
 
 
 def __getattr__(name):
-    # Lazy load rendering functions to avoid importing Pillow when not needed.
+    # Lazy load optional dependency-backed exports until they are requested.
     lazy_exports = {
+        'PitchMotif': ('deltabeat.lib.pitch_motif', 'PitchMotif'),
         'motif_image': ('deltabeat.ui.render', 'motif_image'),
         'multi_track_image': ('deltabeat.ui.render', 'multi_track_image'),
     }

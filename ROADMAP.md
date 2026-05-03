@@ -29,10 +29,10 @@ Current leaning:
 
 - [x] Move into `src/` structure
 - [x] Replace `requirements.txt` with `pyproject.toml`
-- [ ] Add license
-- [ ] Add package version and release metadata
-- [ ] Build wheel and sdist locally
-- [ ] Check package metadata before upload
+- [x] Add license
+- [x] Add package version and release metadata
+- [x] Build wheel and sdist locally
+- [x] Check package metadata before upload
 - [ ] Publish to PyPI
 
 ### Post v0.1 features

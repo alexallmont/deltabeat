@@ -7,7 +7,7 @@ transformations.
 
 Current leaning:
 
-- Move to a `src/` layout before publishing.
+- Use a `src/` layout for package code.
 - Collapse the current `core`/`lib` split unless a clearer domain boundary
   emerges; `lib` currently means "concrete motif implementations", which is not
   very helpful to users.
@@ -17,18 +17,17 @@ Current leaning:
 ## Migrate original prototype
 
 - [x] Copy experimental code from local deltabeat-py
-- [x] Get examples running (at the moment `PYTHONPATH=. python examples/track_image.py`)
+- [x] Get examples running (at the moment `PYTHONPATH=src python examples/track_image.py`)
 
 ### API and naming
 
 - [x] Adopt motif naming across the API
 - [x] Replace `import deltabeat.X` with `import deltabeat as dbt`, i.e. remove `dbc`
-- [x] Expose the intended public API from `deltabeat/__init__.py`
-- [ ] Introduce pitch/parametric in motif
+- [x] Expose the intended public API from `src/deltabeat/__init__.py`
 
 ### Packaging and release
 
-- [ ] Move into `src/` structure
+- [x] Move into `src/` structure
 - [ ] Replace `requirements.txt` with `pyproject.toml`
 - [ ] Split runtime dependencies from development dependencies
 - [ ] Decide whether Pillow/image rendering should be an optional extra
@@ -37,6 +36,11 @@ Current leaning:
 - [ ] Build wheel and sdist locally
 - [ ] Check package metadata before upload
 - [ ] Publish to PyPI
+
+### Post v0.1 features
+
+- [ ] Introduce pitch/parametric in motif
+- [ ] Example complex rhythms and full scores.
 
 ### Examples and docs
 

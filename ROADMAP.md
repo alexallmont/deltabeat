@@ -41,6 +41,8 @@ Current leaning:
 
 - [ ] Introduce pitch/parametric in motif
 - [ ] Example complex rhythms and full scores.
+- [ ] Import/export midi.
+- [ ] Time warp motif.
 
 ### Examples and docs
 

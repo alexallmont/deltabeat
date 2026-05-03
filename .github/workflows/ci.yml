@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+  steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-python@v5
+      with:
+        python-version: "3.11"
+
+    - name: Install package + test deps
+      run: pip install -e .[test]
+
+    - name: Run tests
+      run: pytest
+
+    - name: Build package
+      run: |
+        pip install build
+        python -m build
+
+    - name: Check metadata
+      run: |
+        pip install twine
+        twine check dist/*

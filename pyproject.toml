@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deltabeat"
+version = "0.1.0"
+description = "Compositional tools for time-warped music"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name = "Alex Allmont" }
+]
+
+dependencies = [
+    "numpy",
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Artistic Software",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Multimedia :: Sound/Audio :: MIDI",
+]
+
+[project.optional-dependencies]
+render = [
+    "Pillow",
+]
+test = [
+    "pytest",
+]
+dev = [
+    "build",
+    "pytest",
+    "twine",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

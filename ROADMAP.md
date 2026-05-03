@@ -28,9 +28,7 @@ Current leaning:
 ### Packaging and release
 
 - [x] Move into `src/` structure
-- [ ] Replace `requirements.txt` with `pyproject.toml`
-- [ ] Split runtime dependencies from development dependencies
-- [ ] Decide whether Pillow/image rendering should be an optional extra
+- [x] Replace `requirements.txt` with `pyproject.toml`
 - [ ] Add license
 - [ ] Add package version and release metadata
 - [ ] Build wheel and sdist locally

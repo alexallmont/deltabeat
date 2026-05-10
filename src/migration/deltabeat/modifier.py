@@ -1,4 +1,4 @@
-from .core import Motif, MotifType
+from .motif import Motif, MotifType
 
 
 class Modifier(Motif):

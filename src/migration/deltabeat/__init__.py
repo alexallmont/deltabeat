@@ -1,5 +1,5 @@
 from importlib import import_module
-from .core import Motif, MotifType, Source
+from .motif import Motif, MotifType, Source
 from .modifier import (
   Modifier,
   Repeat,

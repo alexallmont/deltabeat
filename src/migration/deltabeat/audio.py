@@ -1,4 +1,4 @@
-from .core import Motif, MotifType, Source
+from .motif import Motif, MotifType, Source
 
 
 class AudioSource(Source):

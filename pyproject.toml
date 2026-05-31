@@ -22,12 +22,15 @@ classifiers = [
     "Topic :: Multimedia :: Sound/Audio",
     "Topic :: Multimedia :: Sound/Audio :: MIDI",
 ]
+dependencies = [
+    "mido",
+    "numpy",
+    "Pillow",
+]
 
 [project.optional-dependencies]
 test = [
     "pytest",
-    "numpy",
-    "Pillow",
 ]
 dev = [
     "build",

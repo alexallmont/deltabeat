@@ -11,7 +11,7 @@ class AudioSource(Source):
     def __init__(self, sample_data, sample_rate: int):
         self._sample_rate = sample_rate
         self._sample_data = sample_data
-        self._duration = len(_sample_data) / self._sample_rate
+        self._duration = len(self._sample_data) / self._sample_rate
 
     def type(self) -> MotifType:
         return MotifType.AUDIO

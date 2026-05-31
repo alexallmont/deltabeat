@@ -1,6 +1,6 @@
 from .modifier import Modifier
 from .motif import Motif, MotifType, Source
-from .midi_const import *
+from . import midi_const
 
 
 class MidiSource(Source):
@@ -96,8 +96,8 @@ def name_to_index(name: str):
 
     # Construct stable name casing for NOTE_TO_INDEX
     note = name[0].upper()
-    index = NOTE_TO_INDEX[note]
-    octave = int(name[-1]) - NOTE_MIDI_CENTRE_OCTAVE
+    index = midi_const.NOTE_TO_INDEX[note]
+    octave = int(name[-1]) - midi_const.NOTE_MIDI_CENTRE_OCTAVE
 
     if len(name) == 3:
         if name[1] == "#":
@@ -107,16 +107,16 @@ def name_to_index(name: str):
         else:
             raise RuntimeError("Expecting sharp # or flat b symbol")
 
-    midi_index = NOTE_MIDI_CENTRE + (12 * octave) + index
-    assert midi_index >= NOTE_MIDI_START
-    assert midi_index <= NOTE_MIDI_END
+    midi_index = midi_const.NOTE_MIDI_CENTRE + (12 * octave) + index
+    assert midi_index >= midi_const.NOTE_MIDI_START
+    assert midi_index <= midi_const.NOTE_MIDI_END
 
     return midi_index
 
 
 def note_on(channel: int, note: int, velocity: int):
     return (
-        MIDI_NOTE_ON | channel,
+        midi_const.MIDI_NOTE_ON | channel,
         note,
         velocity
     )
@@ -124,7 +124,7 @@ def note_on(channel: int, note: int, velocity: int):
 
 def note_off(channel: int, note: int, velocity: int):
     return (
-        MIDI_NOTE_OFF | channel,
+        midi_const.MIDI_NOTE_OFF | channel,
         note,
         velocity
     )

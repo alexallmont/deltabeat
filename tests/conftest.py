@@ -2,7 +2,8 @@ import pytest
 from typing import Any
 
 import deltabeat as dbt
-from deltabeat.midi import name_to_index, note_on, note_off, NOTE_MIDI_CENTRE
+from deltabeat.midi import name_to_index, note_on, note_off
+from deltabeat.midi_const import NOTE_MIDI_CENTRE
 
 
 @pytest.fixture

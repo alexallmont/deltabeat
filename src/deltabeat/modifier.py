@@ -1,3 +1,5 @@
+import numpy as np
+
 from .motif import Motif, MotifType
 
 
@@ -203,9 +205,6 @@ class RateWarp(Modifier):
         :param from_scale: fractional relative speed of existing motif
         :param to_scale: fractional relative speed of motif to pitch to
         """
-        # FIXME move this class to separate file and lazy load numpy
-        import numpy as np
-
         super().__init__(motif)
         self._duration = duration
         self.len = duration

@@ -1,5 +1,3 @@
-from importlib import import_module
-
 from .motif import InvalidMotifException, MotifType, Motif, Source
 from .audio import AudioSource
 from .midi import (

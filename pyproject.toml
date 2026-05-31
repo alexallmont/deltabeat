@@ -45,3 +45,6 @@ where = ["src"]
 Homepage = "https://github.com/alexallmont/deltabeat"
 Repository = "https://github.com/alexallmont/deltabeat"
 Issues = "https://github.com/alexallmont/deltabeat/issues"
+
+[tool.ruff]
+line-length = 120

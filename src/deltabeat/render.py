@@ -3,13 +3,13 @@ import math
 from .motif import Motif, MultiTrack
 
 
-line_colours = [(int(255 * i/7), 127, 255) for i in range(8)]
+line_colours = [(int(255 * i / 7), 127, 255) for i in range(8)]
 
 
 def motif_image(motif: Motif, scale: int = 100, height: int = 60, col_idx: int = 2):
     width = int(motif.length() * scale)
 
-    im = Image.new('HSV', (width, height))
+    im = Image.new("HSV", (width, height))
     draw = ImageDraw.Draw(im)
 
     # Draw 'measure' markers to show where pos % 0 == 1
@@ -23,7 +23,7 @@ def motif_image(motif: Motif, scale: int = 100, height: int = 60, col_idx: int =
         x = u * scale
         draw.line([x, height, x, height - height * ev.volume], colour)
 
-    return im.convert('RGB')
+    return im.convert("RGB")
 
 
 def multi_track_image(multi_track: MultiTrack, scale: int = 100, track_height: int = 60):
@@ -37,7 +37,7 @@ def multi_track_image(multi_track: MultiTrack, scale: int = 100, track_height: i
     width = int(track_width + 4)
     height = int((track_height + 2) * multi_track.num_tracks()) + 2
 
-    im = Image.new('RGB', (width, height), (40, 40, 40))
+    im = Image.new("RGB", (width, height), (40, 40, 40))
     for i, track in enumerate(multi_track.tracks):
         track_im = motif_image(track, scale, track_height)
         y = i * (track_height + 2) + 2

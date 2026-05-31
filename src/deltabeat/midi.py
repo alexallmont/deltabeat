@@ -7,6 +7,7 @@ class MidiSource(Source):
     """
     Static MIDI notes, for example imported from .mid file
     """
+
     def __init__(self, duration=None, events=None):
         self._duration = 0
         self._events = list(events) if events is not None else []
@@ -35,6 +36,7 @@ class MidiEdit(MidiSource):
     """
     User-edited MIDI notes
     """
+
     def __init__(self, duration: float, events=None):
         super().__init__(duration)
         if events:
@@ -62,6 +64,7 @@ class MidiModifier(Modifier):
     """
     Modifier particular to MIDI data
     """
+
     def __init__(self, motif: Motif):
         if motif.type() != MotifType.MIDI:
             raise RuntimeError("Midi modifiers expect MIDI motif")
@@ -74,6 +77,7 @@ class MidiChannelFilter(MidiModifier):
 
     Primary use case to extract a motif from a larger MIDI import
     """
+
     # FIXME impl
     pass
 
@@ -86,6 +90,7 @@ class MidiNoteSubstitute(MidiModifier):
     arpeggio in a particular key, move between preset mappings to
     change the key or position of notes whilst during playback.
     """
+
     # FIXME impl
     pass
 
@@ -115,19 +120,11 @@ def name_to_index(name: str):
 
 
 def note_on(channel: int, note: int, velocity: int):
-    return (
-        midi_const.MIDI_NOTE_ON | channel,
-        note,
-        velocity
-    )
+    return (midi_const.MIDI_NOTE_ON | channel, note, velocity)
 
 
 def note_off(channel: int, note: int, velocity: int):
-    return (
-        midi_const.MIDI_NOTE_OFF | channel,
-        note,
-        velocity
-    )
+    return (midi_const.MIDI_NOTE_OFF | channel, note, velocity)
 
 
 def load_mid_motif(filename: str) -> MidiSource:

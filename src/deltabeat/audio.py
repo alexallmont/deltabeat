@@ -8,6 +8,7 @@ class AudioSource(Source):
     Generate audio from imported audio sample data at given sample
     rate. Trim and stretch with standard modifiers.
     """
+
     def __init__(self, sample_data, sample_rate: int):
         self._sample_rate = sample_rate
         self._sample_data = sample_data

@@ -31,7 +31,7 @@ def test_midi_name_to_index():
             greater_eq_a0 = octave > 1 or index >= 9
             less_eq_g9 = octave < 9 or index <= 7
             if greater_eq_a0 and less_eq_g9:
-                relative_octave = octave - 4 # start from e.g C4 not C0
+                relative_octave = octave - 4  # start from e.g C4 not C0
                 expected_index = 60 + (12 * relative_octave) + index
 
                 note_or_sharp = f"{INDEX_TO_NOTES[index][0]}{octave}"
@@ -60,7 +60,6 @@ def test_midi_source_from_events(duration, expected_duration, arpeggio_events):
     assert ms.rate(0) == 1.0
     assert ms.rate(1) == 1.0
 
-    #exp_pos, exp_cmds, exp_notes, exp_vels = expected_arpeggio_events()
     exp_pos, exp_data = expected_arpeggio_events()
     assert [ms.pos(i) for i in range(8)] == exp_pos
     assert [ms.data(i) for i in range(8)] == exp_data

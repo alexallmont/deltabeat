@@ -17,6 +17,7 @@ class Modifier(Motif):
     alter the timing of playback, for example for time warping of
     events.
     """
+
     def __init__(self, motif: Motif):
         self._motif = motif
 
@@ -43,6 +44,7 @@ class Repeat(Modifier):
     """
     Repeat the input motif `repeat` times
     """
+
     def __init__(self, motif: Motif, repeat: int):
         super().__init__(motif)
         self._repeat = repeat
@@ -78,6 +80,7 @@ class ScalePositions(Modifier):
     playing at 120 BPM, but output duration is 6 and the positions of
     the events are scaled accordingly.
     """
+
     def __init__(self, motif: Motif, scale: float):
         super().__init__(motif)
         self._scale = scale
@@ -106,6 +109,7 @@ class ScaleRate(Modifier):
     as fast so the duration will be 3 and positions scaled accordingly,
     but also the motif is playing at 120 BPM.
     """
+
     def __init__(self, motif: Motif, scale: float):
         super().__init__(motif)
         self._scale = scale
@@ -135,6 +139,7 @@ class Trim(Modifier):
     Note that this modifier copies events upon construction, so
     presently cannot be applied to dynamic underlying motifs.
     """
+
     def __init__(self, motif: Motif, start: float, end: float):
         super().__init__(motif)
         self._start = start
@@ -168,6 +173,7 @@ class Quantize(Modifier):
     """
     FIXME pull events towards quantise points
     """
+
     pass
 
 
@@ -175,6 +181,7 @@ class Swing(Modifier):
     """
     FIXME pull events towards classic swing percent pattern
     """
+
     pass
 
 
@@ -197,6 +204,7 @@ class RateWarp(Modifier):
     it will cause the output to temporarily reverse, so events go out of order causing
     playback artefacts
     """
+
     def __init__(self, motif: Motif, duration: float, from_rate: float, to_rate: float):
         """
         Pitch a motif to scale between two speeds in a given length

@@ -15,7 +15,7 @@ from .modifier import (
     ScalePositions,
     ScaleRate,
     Swing,
-    Trim
+    Trim,
 )
 from .score import MidiTrack, Score, Track
 

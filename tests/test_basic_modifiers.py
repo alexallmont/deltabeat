@@ -12,7 +12,8 @@ def test_modifier_repeat(arpeggio_events, repeats):
     assert b.count() == a.count() * repeats
     assert b.duration() == a.duration() * repeats
 
-    assert [b.pos(i) for i in range(b.count())] == [a.pos(i % a.count()) + a.duration() * (i // a.count()) for i in range(b.count())]
+    expected_pos = [a.pos(i % a.count()) + a.duration() * (i // a.count()) for i in range(b.count())]
+    assert [b.pos(i) for i in range(b.count())] == expected_pos
     assert [b.data(i) for i in range(b.count())] == [a.data(i % a.count()) for i in range(b.count())]
 
 
@@ -60,7 +61,8 @@ def test_modifier_scale_rate(scale):
     assert [b.data(i) for i in range(4)] == [a.data(i) for i in range(4)]
 
     # Playback rate is scaled
-    assert [b.rate(b.pos(i) / b.duration()) for i in range(4)] == [a.rate(a.pos(i) / a.duration()) * scale for i in range(4)]
+    expected_rate = [a.rate(a.pos(i) / a.duration()) * scale for i in range(4)]
+    assert [b.rate(b.pos(i) / b.duration()) for i in range(4)] == expected_rate
 
 
 def test_modifier_trim_to_lhs():

@@ -14,6 +14,7 @@ class MotifType(Enum):
 
     Motifs can produce MIDI or Audio data
     """
+
     MIDI = 1
     AUDIO = 2
 
@@ -47,6 +48,7 @@ class Motif:
     drives how motifs can be bound together and layered in deltabeat, akin to
     image editing software.
     """
+
     def type(self) -> MotifType:
         raise NotImplementedError(f"Motif.type not implemented for {self}")
 
@@ -76,5 +78,6 @@ class Source(Motif):
     """
     Direct motif data source. Sources have a flat playback rate by default.
     """
+
     def rate(self, u: float) -> float:
         return 1.0

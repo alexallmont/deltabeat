@@ -20,22 +20,22 @@ class Track(Motif):
         return self._motif_type
 
     def count(self) -> int:
-        return 0 # FIXME impl
+        return 0  # FIXME impl
 
     def pos(self, i: int) -> float:
-        return 0 # FIXME impl
+        return 0  # FIXME impl
 
     def data(self, i: int) -> tuple:
-        return tuple() # FIXME impl
+        return tuple()  # FIXME impl
 
     def duration(self) -> float:
-        return 0 # FIXME impl
+        return 0  # FIXME impl
 
     def rate(self, pos) -> float:
-        return 1 # FIXME impl
+        return 1  # FIXME impl
 
     def insert(self, pos: float, motif: Motif):
-        pass # FIXME impl
+        pass  # FIXME impl
 
 
 class MidiTrack(Track):
@@ -57,7 +57,7 @@ class Score:
         self.tracks.append(MidiTrack(name))
 
     def render_midi(self):
-        pass # FIXME impl
+        pass  # FIXME impl
 
     def render_audio(self):
-        pass # FIXME impl
+        pass  # FIXME impl

@@ -135,7 +135,7 @@ def load_mid_motif(filename: str) -> MidiSource:
 
     Very basic import at present, mostly for debugging.
     """
-    import mido # import-untyped: ignore
+    import mido
 
     pos = 0
     time_sig_scale = 1

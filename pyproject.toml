@@ -29,13 +29,11 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = [
-    "pytest",
-]
 dev = [
     "build",
     "mypy",
     "pytest",
+    "pytest-cov",
     "ruff",
     "twine",
 ]

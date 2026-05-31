@@ -23,7 +23,7 @@ def motif_image(motif: Motif, scale: int = 100, height: int = 60, col_idx: int =
     for i in range(motif.count()):
         u = motif.pos(i)
         x = u * scale
-        vel = motif.data(i)[2] # FIXME use velocity for debug render
+        vel = motif.data(i)[2]  # FIXME use velocity for debug render
         draw.line([x, height, x, height - height * vel], colour)
 
     return im.convert("RGB")

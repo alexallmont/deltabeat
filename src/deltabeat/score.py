@@ -1,3 +1,5 @@
+from typing import List
+
 from .motif import Motif, MotifType
 
 
@@ -9,23 +11,31 @@ class Track(Motif):
     FIXME work in progress, still shaping API
     """
 
-    def __init__(self):
+    def __init__(self, motif_type: MotifType):
         super().__init__()
-        self._motifs = []
+        self._motif_type = motif_type
+        self._motifs: List = []
 
-    def type(self) -> MotifType: ...
+    def type(self) -> MotifType:
+        return self._motif_type
 
-    def count(self) -> int: ...  # FIXME return self.motif.count()
+    def count(self) -> int:
+        return 0 # FIXME impl
 
-    def pos(self, i: int): ...  # FIXME return self.motif.pos(i)
+    def pos(self, i: int) -> float:
+        return 0 # FIXME impl
 
-    def data(self, i: int): ...  # FIXME return self.motif.data(i)
+    def data(self, i: int) -> tuple:
+        return tuple() # FIXME impl
 
-    def duration(self) -> float: ...  # FIXME return self.motif.duration()
+    def duration(self) -> float:
+        return 0 # FIXME impl
 
-    def rate(self, pos): ...  # FIXME return super().rate(pos)
+    def rate(self, pos) -> float:
+        return 1 # FIXME impl
 
-    def insert(self, pos: float, motif: Motif): ...  # FIXME self._motifs.append((pos, motif))
+    def insert(self, pos: float, motif: Motif):
+        pass # FIXME impl
 
 
 class MidiTrack(Track):
@@ -46,6 +56,8 @@ class Score:
     def add_midi_track(self, name=None):
         self.tracks.append(MidiTrack(name))
 
-    def render_midi(): ...
+    def render_midi(self):
+        pass # FIXME impl
 
-    def render_audio(): ...
+    def render_audio(self):
+        pass # FIXME impl

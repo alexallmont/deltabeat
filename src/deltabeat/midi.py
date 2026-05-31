@@ -1,3 +1,5 @@
+from typing import List
+
 from .modifier import Modifier
 from .motif import Motif, MotifType, Source
 from . import midi_const
@@ -42,13 +44,13 @@ class MidiEdit(MidiSource):
         if events:
             self._build_notes_from_events(events)
         else:
-            self._notes = []
+            self._notes: List = []
 
     def add_note(self, pos, channel, note, velocity, duration):
         self._notes.append((pos, channel, note, velocity, duration))
         self._update_events()
 
-    def _build_notes_from_events(self):
+    def _build_notes_from_events(self, events):
         # FIXME track on and off per channel/note pair to build notes
         pass
 
@@ -133,7 +135,7 @@ def load_mid_motif(filename: str) -> MidiSource:
 
     Very basic import at present, mostly for debugging.
     """
-    import mido
+    import mido # import-untyped: ignore
 
     pos = 0
     time_sig_scale = 1

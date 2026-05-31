@@ -1,32 +1,37 @@
-from PIL import Image, ImageDraw
 import math
-from .motif import Motif, MultiTrack
+from PIL import Image, ImageDraw
+import typing
+
+from .motif import Motif
 
 
 line_colours = [(int(255 * i / 7), 127, 255) for i in range(8)]
 
 
 def motif_image(motif: Motif, scale: int = 100, height: int = 60, col_idx: int = 2):
-    width = int(motif.length() * scale)
+    width = int(motif.duration() * scale)
 
     im = Image.new("HSV", (width, height))
     draw = ImageDraw.Draw(im)
 
     # Draw 'measure' markers to show where pos % 0 == 1
-    for u in range(math.ceil(motif.length())):
-        x = u * scale
+    for d in range(math.ceil(motif.duration())):
+        x = float(d * scale)
         draw.line([x, 0, x, height], (0, 0, 40))
 
     colour = line_colours[col_idx % 8]
-    for ev in motif.events():
-        u = ev.pos
+    for i in range(motif.count()):
+        u = motif.pos(i)
         x = u * scale
-        draw.line([x, height, x, height - height * ev.volume], colour)
+        vel = motif.data(i)[2] # FIXME use velocity for debug render
+        draw.line([x, height, x, height - height * vel], colour)
 
     return im.convert("RGB")
 
 
-def multi_track_image(multi_track: MultiTrack, scale: int = 100, track_height: int = 60):
+# FIXME migrate from old code
+@typing.no_type_check
+def multi_track_image(multi_track: None, scale: int = 100, track_height: int = 60):
     # Use longest track to determine image width
     max_len = 0
     for track in multi_track.tracks:

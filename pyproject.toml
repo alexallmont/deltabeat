@@ -34,7 +34,9 @@ test = [
 ]
 dev = [
     "build",
+    "mypy",
     "pytest",
+    "ruff",
     "twine",
 ]
 
@@ -48,3 +50,6 @@ Issues = "https://github.com/alexallmont/deltabeat/issues"
 
 [tool.ruff]
 line-length = 120
+
+[tool.mypy]
+disable_error_code = ["import-untyped"]

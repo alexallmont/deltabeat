@@ -96,7 +96,7 @@ class MotifChain(Motif):
         return m.rate(v)
 
     def _motif_at(self, i: int):
-        prefix_dur = .0
+        prefix_dur = 0.0
         for m in self._motifs:
             if i < m.count():
                 return m, i, prefix_dur
@@ -128,7 +128,7 @@ class MotifChain(Motif):
         #     13 / 15 = (2, 3/5)    |------|--|--X-|
         #     14 / 15 = (2, 4/5)    |------|--|---X|
         total_duration = self.duration()
-        current_start_pos = .0
+        current_start_pos = 0.0
         for m in self._motifs:
             next_start_pos = current_start_pos + m.duration()
             start_frac = current_start_pos / total_duration

@@ -5,10 +5,10 @@ import deltabeat as dbt
 
 
 def test_motif_chain():
-    a = MotifRepeatN(1, 7, 2) # e.g. 1 event over 7 duration at rate 2
+    a = MotifRepeatN(1, 7, 2)  # e.g. 1 event over 7 duration at rate 2
     b = MotifRepeatN(2, 3, 4)
     c = MotifRepeatN(3, 5, 8)
-    m = dbt.MotifChain(a, b, c)
+    m = dbt.MotifChain([a, b, c])
 
     assert m.count() == 6
     assert m.duration() == 15

@@ -25,7 +25,7 @@ def expected_arpeggio_events():
 
 
 class MotifRepeatN(dbt.Motif):
-    def __init__(self, n: int, duration: float=1, rate: float=1):
+    def __init__(self, n: int, duration: float = 1, rate: float = 1):
         self._count = n
         self._duration = duration
         self._rate = rate

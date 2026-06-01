@@ -25,9 +25,10 @@ def expected_arpeggio_events():
 
 
 class MotifRepeatN(dbt.Motif):
-    def __init__(self, count: int, duration: float):
-        self._count = count
+    def __init__(self, n: int, duration: float=1, rate: float=1):
+        self._count = n
         self._duration = duration
+        self._rate = rate
 
     def type(self) -> dbt.MotifType:
         return dbt.MotifType.MIDI
@@ -46,7 +47,7 @@ class MotifRepeatN(dbt.Motif):
         return self._duration
 
     def rate(self, u: float) -> float:
-        return 1
+        return self._rate
 
 
 class MotifSplitRate(dbt.Motif):

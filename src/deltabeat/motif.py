@@ -127,14 +127,16 @@ class MotifChain(Motif):
         #     12 / 15 = (2, 2/5)    ...
         #     13 / 15 = (2, 3/5)    |------|--|--X-|
         #     14 / 15 = (2, 4/5)    |------|--|---X|
-        scaled_duration = u * self.duration()
-        acc_duration = 0
+        total_duration = self.duration()
+        current_start_pos = 0
         for m in self._motifs:
-            acc_duration += m.duration()
-            # FIXME computation wrong here
-            if scaled_duration < acc_duration:
-                v = u - (acc_duration / m.duration()) / m.count()
+            next_start_pos = current_start_pos + m.duration()
+            start_frac = current_start_pos / total_duration
+            next_frac = next_start_pos / total_duration
+            if u < next_frac:
+                v = (u - start_frac) * (total_duration / m.duration())
                 return m, v
+            current_start_pos = next_start_pos
         return None, None
 
 

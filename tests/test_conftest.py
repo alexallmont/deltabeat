@@ -1,6 +1,6 @@
 import pytest
 
-from conftest import expected_arpeggio_events, MotifRepeatN
+from conftest import expected_arpeggio_events, MotifRepeatN, MotifSplitRate
 
 
 def test_conftest_arpeggio_events(arpeggio_events):
@@ -21,5 +21,8 @@ def test_motif_repeat_n(count, duration):
 
 
 def test_motif_split_rate():
-    # FIXME impl
-    pass
+    m = MotifSplitRate()
+    assert m.count() == 4
+    assert m.duration() == 0.75
+    assert [m.pos(i) for i in range(4)] == [0, 0.25, 0.5, 0.625]
+    assert [m.rate(i / 10) for i in range(10)] == [1 if i < 5 else 2 for i in range(10)]

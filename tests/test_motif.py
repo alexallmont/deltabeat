@@ -1,11 +1,13 @@
 from conftest import MotifRepeatN
+import pytest
+
 import deltabeat as dbt
 
 
 def test_motif_chain():
-    a = MotifRepeatN(1, 7)
-    b = MotifRepeatN(2, 3)
-    c = MotifRepeatN(3, 5)
+    a = MotifRepeatN(1, 7, 2) # e.g. 1 event over 7 duration at rate 2
+    b = MotifRepeatN(2, 3, 4)
+    c = MotifRepeatN(3, 5, 8)
     m = dbt.MotifChain(a, b, c)
 
     assert m.count() == 6
@@ -21,18 +23,20 @@ def test_motif_chain():
     assert m.pos(4) == 10 + 5 / 3  # fourth motif is 5 long split into 3 events
     assert m.pos(5) == 10 + 2 * 5 / 3  # .. * 2 for next event
 
-    assert m._motif_at_frac(0) == (a, 0)
-    assert m._motif_at_frac(1 / 15) == (a, 1/7)
-    assert m._motif_at_frac(2 / 15) == (a, 2/7)
-    assert m._motif_at_frac(3 / 15) == (a, 3/7)
-    assert m._motif_at_frac(4 / 15) == (a, 4/7)
-    assert m._motif_at_frac(5 / 15) == (a, 5/7)
-    assert m._motif_at_frac(6 / 15) == (a, 6/7)
-    assert m._motif_at_frac(7 / 15) == (b, 0)
-    assert m._motif_at_frac(8 / 15) == (b, 1/3)
-    assert m._motif_at_frac(9 / 15) == (b, 2/3)
-    assert m._motif_at_frac(10 / 15) == (c, 0)
-    assert m._motif_at_frac(11 / 15) == (c, 1/5)
-    assert m._motif_at_frac(12 / 15) == (c, 2/5)
-    assert m._motif_at_frac(13 / 15) == (c, 3/5)
-    assert m._motif_at_frac(14 / 15) == (c, 4/5)
+    # Check that internals get right mofif at frac position
+    motifs_at_frac = [m._motif_at_frac(i / 15)[0] for i in range(15)]
+    assert all(motifs_at_frac[i] == a for i in range(7))
+    assert all(motifs_at_frac[i] == b for i in range(7, 10))
+    assert all(motifs_at_frac[i] == c for i in range(10, 15))
+
+    # Check that internals get right relative position given overall frac position
+    relative_u_at_frac = [m._motif_at_frac(i / 15)[1] for i in range(15)]
+    assert relative_u_at_frac[:7] == pytest.approx([i / 7 for i in range(7)])
+    assert relative_u_at_frac[7:10] == pytest.approx([i / 3 for i in range(3)])
+    assert relative_u_at_frac[10:15] == pytest.approx([i / 5 for i in range(5)])
+
+    # Check the rates are correct for each motif in chain given overall frac position
+    rate_at_frac = [m.rate(i / 15) for i in range(15)]
+    assert rate_at_frac[:7] == [2] * 7
+    assert rate_at_frac[7:10] == [4] * 3
+    assert rate_at_frac[10:15] == [8] * 5

@@ -1,11 +1,5 @@
 from enum import Enum
-from typing import Any
-
-
-class InvalidMotifException(Exception):
-    """
-    Report cases where a motif is expected but a different type was passed
-    """
+from typing import Any, List
 
 
 class MotifType(Enum):
@@ -72,6 +66,76 @@ class Motif:
         for i in range(self.count()):
             exprs.append(f"{self.pos(i)}: {self.data(i)}")
         return ", ".join(exprs)
+
+
+class MotifChain(Motif):
+    def __init__(self, *motifs: List[Motif]):
+        assert len(motifs) > 0
+        assert all(m.type() == motifs[0].type() for m in motifs[1:])
+        self._motifs = motifs
+
+    def type(self) -> MotifType:
+        return self._motif[0].type()
+
+    def count(self) -> int:
+        return sum(m.count() for m in self._motifs)
+
+    def pos(self, i: int):
+        m, j, prefix_dur = self._motif_at(i)
+        return m.pos(j) + prefix_dur
+
+    def data(self, i: int):
+        m, j, _ = self._motif_at(i)
+        return m.data(j)
+
+    def duration(self) -> float:
+        return sum(m.duration() for m in self._motifs)
+
+    def rate(self, u: float):
+        m, v = self._motif_at_frac(u)
+        return m.rate(v)
+
+    def _motif_at(self, i: int):
+        prefix_dur = 0
+        for m in self._motifs:
+            if i < m.count():
+                return m, i, prefix_dur
+            i -= m.count()
+            prefix_dur += m.duration()
+
+        return None, None
+
+    def _motif_at_frac(self, u: float):
+        # Example scenario
+        #   chain   |------|--|----|
+        #   dur         7    3    5
+        #   acc_dur 0      7  10   15
+        #   count   0      1  2    3
+        #   fracs:
+        #     0 / 15 = (0, 0)       X------|--|----|
+        #     1 / 15 = (0, 1/7)     |X-----|--|----|
+        #     2 / 15 = (0, 2/7)     |-X----|--|----|
+        #     3 / 15 = (0, 3/7)     ...
+        #     4 / 15 = (0, 4/7)
+        #     5 / 15 = (0, 5/7)
+        #     6 / 15 = (0, 6/7)
+        #     7 / 15 = (1, 0)
+        #     8 / 15 = (1, 1/3)
+        #     9 / 15 = (1, 2/3)
+        #     10 / 15 = (2, 0)
+        #     11 / 15 = (2, 1/5)
+        #     12 / 15 = (2, 2/5)    ...
+        #     13 / 15 = (2, 3/5)    |------|--|--X-|
+        #     14 / 15 = (2, 4/5)    |------|--|---X|
+        scaled_duration = u * self.duration()
+        acc_duration = 0
+        for m in self._motifs:
+            acc_duration += m.duration()
+            # FIXME computation wrong here
+            if scaled_duration < acc_duration:
+                v = u - (acc_duration / m.duration()) / m.count()
+                return m, v
+        return None, None
 
 
 class Source(Motif):

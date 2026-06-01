@@ -24,7 +24,35 @@ def expected_arpeggio_events():
     return pos, data
 
 
+class MotifRepeatN(dbt.Motif):
+    def __init__(self, count: int, duration: float):
+        self._count = count
+        self._duration = duration
+
+    def type(self) -> dbt.MotifType:
+        return dbt.MotifType.MIDI
+
+    def count(self) -> int:
+        return self._count
+
+    def pos(self, i: int) -> float:
+        return self._duration * i / self._count
+
+    def data(self, i: int) -> Any:
+        # Just MIDI "on" commands channel 0; no "off" in basic tests
+        return (144, NOTE_MIDI_CENTRE + i, 127)
+
+    def duration(self) -> float:
+        return self._duration
+
+    def rate(self, u: float) -> float:
+        return 1
+
+
 class MotifSplitRate(dbt.Motif):
+    def type(self) -> dbt.MotifType:
+        return dbt.MotifType.MIDI
+
     def count(self) -> int:
         return 4
 

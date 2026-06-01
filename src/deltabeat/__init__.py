@@ -1,4 +1,4 @@
-from .motif import InvalidMotifException, MotifType, Motif, Source
+from .motif import MotifChain, MotifType, Motif, Source
 from .audio import AudioSource
 from .midi import (
     MidiChannelFilter,
@@ -21,7 +21,7 @@ from .score import MidiTrack, Score, Track
 
 
 __all__ = [
-    "InvalidMotifException",
+    "MotifChain",
     "MotifType",
     "Motif",
     "Source",

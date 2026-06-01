@@ -84,6 +84,11 @@ class MidiChannelFilter(MidiModifier):
     pass
 
 
+class MidiSilence(Source):
+    # FIXME impl, use as spacer in chains, precursor to track interface
+    pass
+
+
 class MidiNoteSubstitute(MidiModifier):
     """
     Dynamically swap out MIDI notes

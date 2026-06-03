@@ -22,16 +22,20 @@ classifiers = [
     "Topic :: Multimedia :: Sound/Audio",
     "Topic :: Multimedia :: Sound/Audio :: MIDI",
 ]
-
-[project.optional-dependencies]
-test = [
-    "pytest",
+dependencies = [
+    "mido",
     "numpy",
     "Pillow",
 ]
+
+[project.optional-dependencies]
 dev = [
     "build",
+    "mypy",
+    "pre-commit",
     "pytest",
+    "pytest-cov",
+    "ruff",
     "twine",
 ]
 
@@ -42,3 +46,9 @@ where = ["src"]
 Homepage = "https://github.com/alexallmont/deltabeat"
 Repository = "https://github.com/alexallmont/deltabeat"
 Issues = "https://github.com/alexallmont/deltabeat/issues"
+
+[tool.ruff]
+line-length = 120
+
+[tool.mypy]
+disable_error_code = ["import-untyped"]
